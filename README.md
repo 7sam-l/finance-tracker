@@ -5,7 +5,7 @@ Stack: Python + Flask | React + Vite | SQLite + SQLAlchemy
 
 ## Manual Setup
 
-# Backend setup
+## Backend setup
 
 cd backend
 
@@ -14,15 +14,15 @@ source venv/bin/activate
 
 pip install -r requirements.txt
 
-# Database setup
+## Database setup
 flask --app run db init
 flask --app run db migrate -m "initial"
 flask --app run db upgrade
 
-# Seed initial data
+## Seed initial data
 python seed.py
 
-# Run backend server
+## Run backend server
 python run.py
 
 ### Frontend
