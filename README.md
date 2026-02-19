@@ -2,8 +2,6 @@
 
 Stack: Python + Flask | React + Vite | SQLite + SQLAlchemy
 
-## Setup
-Run `bash setup.sh` — sets everything up automatically.
 
 ## Manual Setup
 
