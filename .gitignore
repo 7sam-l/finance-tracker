@@ -53,6 +53,7 @@ yarn-error.log*
 
 .DS_Store
 # <<<<<<< HEAD
+# <<<<<<< HEAD
 Thumbs.db
 *.swp
 .vscode/
@@ -62,3 +63,5 @@ Thumbs.db
 #Claude
 CLAUDE.md
 # >>>>>>> 653608b (some changes in gitignore)
+# =======
+# >>>>>>> 12c4605 (Fix gitignore and remove tracked cache and db files)
