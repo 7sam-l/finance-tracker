@@ -60,8 +60,6 @@ Thumbs.db
 .idea/
 # =======
 
-#Claude
-CLAUDE.md
 # >>>>>>> 653608b (some changes in gitignore)
 # =======
 # >>>>>>> 12c4605 (Fix gitignore and remove tracked cache and db files)
