@@ -37,9 +37,37 @@ DELETE   /api/transactions/:id
 GET/POST /api/categories/
 GET      /api/summary/
 
-## Key Decisions
-- Marshmallow schemas own all validation — clear single-responsibility boundary
-- Transaction type must match category type — enforced in routes, tested explicitly
-- App factory pattern — same code runs with different configs (prod/test)
-- All errors flow through utils.py helpers — consistent shape, centralized logging
-- All frontend API calls centralized in services/api.js
+## Key Technical Decisions
+
+1. **App Factory Pattern**
+   We use Flask’s app factory to allow multiple configurations
+   (development, testing, production) without code duplication.
+   This pattern enables easier test setup and deployment flexibility.
+
+2. **Marshmallow for Validation**
+   Validation logic lives in Marshmallow schemas to enforce clear
+   separation of concerns. This keeps route functions focused
+   on request/response flow while schema definitions handle data
+   validation and transformations.
+
+3. **Transaction–Category Type Enforcement**
+   The backend enforces that a transaction’s type must match its
+   category’s type. This rule ensures data integrity and simplifies
+   reporting logic.
+
+4. **Centralized Error Handling**
+   All errors route through `utils.py` helpers which produce
+   consistent response shapes and centralized error logging.
+
+5. **Centralized Frontend API Layer**
+   All frontend API calls are wrapped in `services/api.js` to
+   ensure consistent base URLs, headers, and error handling
+   across components.
+
+6. **Testing Strategy**
+   Tests live in `backend/app/tests` and focus on core service
+   logic and major edge cases. CI integration planned for future.
+
+7. **Database Migrations**
+   We use Flask-Migrate to track and version schema changes,
+   making schema updates safe and repeatable across environments.
