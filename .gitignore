@@ -52,7 +52,13 @@ yarn-error.log*
 # ===========
 
 .DS_Store
+# <<<<<<< HEAD
 Thumbs.db
 *.swp
 .vscode/
 .idea/
+# =======
+
+#Claude
+CLAUDE.md
+# >>>>>>> 653608b (some changes in gitignore)

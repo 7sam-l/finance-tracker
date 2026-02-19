@@ -21,4 +21,4 @@ with app.app_context():
         if not Category.query.filter_by(name=cat_data["name"]).first():
             db.session.add(Category(**cat_data))
     db.session.commit()
-    print("✅ Seeded default categories.")
+    print("Seeded default categories.")
