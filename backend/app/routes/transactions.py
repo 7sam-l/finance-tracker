@@ -27,10 +27,25 @@ def create_transaction():
     json_data = request.get_json()
     if not json_data:
         return bad_request("No JSON body provided.")
+        
+    suggested_category_name = None
+    if "category_id" not in json_data and "description" in json_data:
+        from ..services.categorizer import predict_category
+        prediction = predict_category(json_data["description"])
+        suggested_category_name = prediction["predicted_category"]
+        cat = Category.query.filter_by(name=suggested_category_name).first()
+        if cat:
+            json_data["category_id"] = cat.id
+            if "type" not in json_data:
+                json_data["type"] = cat.type
+                
     try:
         data = transaction_schema.load(json_data)
     except ValidationError as err:
         return bad_request(err.messages)
+
+    if "category_id" not in data:
+        return bad_request({"category_id": ["Category is required and could not be auto-determined."]})
 
     category = Category.query.get(data["category_id"])
     if not category:
@@ -48,7 +63,12 @@ def create_transaction():
     db.session.add(transaction)
     db.session.commit()
     logger.info(f"Created transaction id={transaction.id}")
-    return jsonify(transaction_schema.dump(transaction)), 201
+    
+    res = transaction_schema.dump(transaction)
+    if suggested_category_name:
+        res["suggested_category"] = suggested_category_name
+        
+    return jsonify(res), 201
 
 
 @bp.route("/<int:transaction_id>", methods=["DELETE"])

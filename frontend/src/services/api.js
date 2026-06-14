@@ -23,4 +23,9 @@ export const api = {
   getCategories: () => request("/categories/"),
   createCategory: (body) => request("/categories/", { method: "POST", body: JSON.stringify(body) }),
   getSummary: () => request("/summary/"),
+  categorize: (body) => request("/categorize/", { method: "POST", body: JSON.stringify(body) }),
+  getForecastSummary: () => request("/forecast/summary/"),
+  getForecastByCategory: () => request("/forecast/by-category/"),
+  getAnalyticsTrends: () => request("/analytics/trends/"),
+  getAnalyticsAnomalies: () => request("/analytics/anomalies/"),
 };

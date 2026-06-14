@@ -71,3 +71,22 @@ GET      /api/summary/
 7. **Database Migrations**
    We use Flask-Migrate to track and version schema changes,
    making schema updates safe and repeatable across environments.
+
+## Data Science Features
+
+1. **Auto-categorization (NLP/ML)**
+   - Uses `scikit-learn` `TfidfVectorizer` and `MultinomialNB` (Naive Bayes).
+   - This approach is interpretable, works extremely well on small text datasets (like transaction descriptions), and is fast to train.
+   - It incorporates a rule-based fallback logic to solve the cold-start problem when no or little labeled data is present.
+   - Run `python scripts/train_categorizer.py` to fetch data, evaluate metrics (accuracy, F1-score) and save the `.pkl` artifact.
+
+2. **Spending Forecast (Time Series)**
+   - Uses `statsmodels` Holt-Winters Exponential Smoothing to forecast the next month's spending.
+   - It captures simple trend and seasonality for user data, providing confidence intervals for estimated upper and lower bounds.
+   - If historical data is too sparse (< 6 months), it falls back gracefully to a simple moving average.
+
+3. **Anomaly Detection**
+   - Detects unusual transactions per-category using the Interquartile Range (IQR) method. 
+   - Transactions exceeding Q3 + 1.5*IQR are flagged on the Insights page with contextual reasons.
+   
+Note: Seed scripts (`scripts/seed_categorized_transactions.py` and `scripts/seed_demo_transactions.py`) generate synthetic labeled data and 18-months of history respectively, specifically designed to demonstrate these data science capabilities out-of-the-box. In production, real data continuously feeds the models, improving robustness and requiring drift monitoring to retrain models periodically.

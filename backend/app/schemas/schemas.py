@@ -15,7 +15,7 @@ class TransactionSchema(Schema):
     type = fields.Str(required=True, validate=validate.OneOf(["income", "expense"]))
     date = fields.Date(required=True)
     created_at = fields.DateTime(dump_only=True)
-    category_id = fields.Int(required=True, load_only=True)
+    category_id = fields.Int(required=False, load_only=True)
     category = fields.Nested(CategorySchema, dump_only=True)
 
     @validates("amount")
