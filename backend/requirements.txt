@@ -12,3 +12,4 @@ numpy
 statsmodels
 joblib
 gunicorn
+psycopg2-binary
